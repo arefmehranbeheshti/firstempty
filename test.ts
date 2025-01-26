@@ -7,13 +7,70 @@ import { arkMessage, arkChequeHash, hashMessage } from './utils'
 const key: string | undefined = process.env.PRIVATE_KEY || undefined
 const zilswap = new Zilswap(Network.MainNet, key)
 
+function getToken(tokenName: string) {
+  return Object.values(zilswap.getAppState().tokens).find(
+    (token) => token.symbol === tokenName
+  );
+}
+
+  async function showDetails(
+    tokenInName: string,
+    tokenOutName: string,
+    amount: number
+  ): Promise<[number, number]> {
+    const inToken = getToken(tokenInName);
+    const outToken = getToken(tokenOutName);
+
+    if (!inToken || !outToken) {
+      throw new Error("Token not found");
+    }
+
+
+    const decPowIn = Math.pow(10, inToken.decimals);
+    const decPowOut = Math.pow(10, outToken.decimals);
+
+    const r1 = await zilswap.getRatesForInput(
+      inToken.address,
+      outToken.address,
+      String(Number(amount * decPowIn).toFixed())
+    );
+
+    const result1 = Number(r1.expectedAmount) / decPowOut;
+
+    const r2 = await zilswap.getRatesForOutput(
+      inToken.address,
+      outToken.address,
+      String(Number(amount * decPowOut).toFixed())
+    );
+
+    const result2 = Number(r2.expectedAmount) / decPowIn;
+
+    return [result1, result2];
+  }
+const myTest=async ()=>{
+  await zilswap.initialize()
+
+  const [buyed_ztoken_zilswap] = await showDetails(
+    "ZIL",
+    "zWBTC",
+    12000
+  );
+  console.log(buyed_ztoken_zilswap)
+  const [, selled_ztoken_zilswap] = await showDetails(
+    "zWBTC",
+    "ZIL",
+    12000
+  );
+  console.log(selled_ztoken_zilswap)
+  
+}
 const test = async () => {
   // init
-  await zilswap.initialize(printResults)
+  await zilswap.initialize()
 
   // get app state
   console.log('\ninitial app state:\n')
-  console.log(JSON.stringify(zilswap.getAppState(), null, 2))
+  // console.log(JSON.stringify(zilswap.getAppState(), null, 2))
 
   try {
     // approve token
@@ -34,10 +91,10 @@ const test = async () => {
     // const tx2 = await zilswap.removeLiquidity('SWTH', remove25Percent)
     // console.log(`\ntx hash: ${tx2.hash}\n`)
     // await waitForTx()
-    const symbol='zWBTC';
+    const symbol='zUSDT';
     // constants
-    const someSWTH = await zilswap.toUnitless(symbol, '0.1')
-    const someZIL = await zilswap.toUnitless('ZIL', '0.1')
+    const someSWTH = await zilswap.toUnitless(symbol, '1')
+    const someZIL = await zilswap.toUnitless('ZIL', '1')
 
     // get expected rates for exact input
     const r1 = await zilswap.getRatesForInput(symbol, 'ZIL', someSWTH)
@@ -213,7 +270,8 @@ const waitForTx = async () => {
   try {
     // await test()
     // await test2()
-    test()
+    // test()
+    myTest()
     console.log('test done!')
   } catch (err) {
     console.error(err)
