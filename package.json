@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "zilswap-sdk": "^1.3.26"
+  }
+}
