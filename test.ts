@@ -50,19 +50,20 @@ function getToken(tokenName: string) {
 const myTest=async ()=>{
   await zilswap.initialize()
 
-  const [buyed_ztoken_zilswap] = await showDetails(
-    "ZIL",
-    "zWBTC",
-    12000
-  );
-  console.log(buyed_ztoken_zilswap)
-  const [, selled_ztoken_zilswap] = await showDetails(
-    "zWBTC",
-    "ZIL",
-    12000
-  );
-  console.log(selled_ztoken_zilswap)
-  
+  setInterval(async () => {
+    const [buyed_ztoken_zilswap] = await showDetails(
+      "ZIL",
+      "zWBTC",
+      12000
+    );
+    console.log(buyed_ztoken_zilswap)
+    const [, selled_ztoken_zilswap] = await showDetails(
+      "zWBTC",
+      "ZIL",
+      12000
+    );
+    console.log(selled_ztoken_zilswap)
+  }, 1000);
 }
 const test = async () => {
   // init
