@@ -213,7 +213,7 @@ const waitForTx = async () => {
   try {
     // await test()
     // await test2()
-    test3()
+    test()
     console.log('test done!')
   } catch (err) {
     console.error(err)
