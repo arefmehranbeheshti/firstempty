@@ -49,8 +49,15 @@ function getToken(tokenName: string) {
   }
 const myTest=async ()=>{
   await zilswap.initialize()
+  let counter=0;
 
   setInterval(async () => {
+    counter=counter+1;
+    if(counter%30000==0){
+      await zilswap.initialize()
+
+      console.log("reinsiilized")
+    }
     const [buyed_ztoken_zilswap] = await showDetails(
       "ZIL",
       "zWBTC",
