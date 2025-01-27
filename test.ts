@@ -53,7 +53,7 @@ const myTest=async ()=>{
 
   setInterval(async () => {
     counter=counter+1;
-    if(counter%30000==0){
+    if(counter%300==0){
       await zilswap.initialize()
 
       console.log("reinsiilized")
