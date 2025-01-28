@@ -878,7 +878,7 @@ yn@3.1.1:
   resolved "https://registry.yarnpkg.com/yn/-/yn-3.1.1.tgz#1e87401a09d767c1d5eab26a6e4c185182d2eb50"
   integrity sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==
 
-zilswap-sdk@^1.3.26:
+zilswap-sdk@^1.3.25:
   version "1.3.26"
   resolved "https://registry.yarnpkg.com/zilswap-sdk/-/zilswap-sdk-1.3.26.tgz#a5c474482c5e41167e4ad49ecdda6541d95bbcdb"
   integrity sha512-cRFeLaLp5ePT5ORrP2i2DU65KPMFVYrFUB33NI3IK++NBhOhGXlWjTHo4T8/q+2TGc33Fp78H6Wk+lhHOqT0mQ==
